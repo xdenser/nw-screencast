@@ -4,9 +4,10 @@
   "description": "screen casting module for NW",
   "main": "lib/server.js",
   "browser": "lib/client.js",
+  "repository": "https://github.com/xdenser/nw-screencast.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Denys Khanzhyiev",
-  "license": "ISC"
+  "license": "MIT"
 }
