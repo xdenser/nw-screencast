@@ -1,5 +1,5 @@
 {
-  "name": "screenCast",
+  "name": "nw-screencast",
   "version": "0.0.1",
   "description": "screen casting module for NW",
   "main": "lib/server.js",

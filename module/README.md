@@ -1,0 +1,1 @@
+helper module for Node-Webkit to allow casting of local screen.
