@@ -1,0 +1,9 @@
+{
+  "name": "server",
+  "main": "index.html",
+  "window": {
+    "toolbar": true,
+    "frame": true
+  },
+  "chromium-args" : "--enable-usermedia-screen-capturing"
+}

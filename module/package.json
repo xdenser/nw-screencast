@@ -1,0 +1,12 @@
+{
+  "name": "screenCast",
+  "version": "0.0.1",
+  "description": "screen casting module for NW",
+  "main": "lib/server.js",
+  "browser": "lib/client.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Denys Khanzhyiev",
+  "license": "ISC"
+}

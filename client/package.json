@@ -1,0 +1,8 @@
+{
+  "name": "client",
+  "main": "index.html",
+  "window": {
+    "toolbar": true,
+    "frame": true
+  }
+}

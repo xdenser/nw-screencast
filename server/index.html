@@ -1,0 +1,78 @@
+<head>
+
+</head>
+<body>
+<video id='vid' height=600px autoplay></video>
+<script>
+
+    function start(dataChannel,cb) {
+        if(!dataChannel) {
+            console.log('no data channel');
+            return ;
+        }
+        var config = {
+            'iceServers': []
+        };
+
+        var
+          peerConnection = new webkitRTCPeerConnection(config),
+          myiface = {
+                    sdp: function(sdp){
+                       peerConnection.setRemoteDescription(new RTCSessionDescription(sdp));
+                    },
+                    candidate:function(candidate){
+                       peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+                    }
+          };
+
+        peerConnection.onicecandidate = function (evt) {
+            console.log('ice candidate called', evt.candidate);
+            if(evt.candidate) {
+                dataChannel.candidate(evt.candidate);
+            }
+        }
+
+        peerConnection.onaddstream = function (evt) {
+            console.log('add stream called', evt);
+        }
+
+        peerConnection.onnegotiationneeded = function () {
+            console.log('on neg needed call');
+            peerConnection.createOffer(function (desc) {
+                console.log('offer description', desc);
+                console.log('offer description sdp', desc.sdp);
+
+                peerConnection.setLocalDescription(desc, function () {
+                    console.log('updated local description', peerConnection.localDescription);
+                    dataChannel.sdp(peerConnection.localDescription);
+                });
+            }, function (err) {
+                console.log('createoffer error', err);
+            });
+        }
+
+
+        navigator.webkitGetUserMedia({
+            video: {
+                mandatory: {
+                    chromeMediaSource: 'screen'
+                    ,maxWidth:screen.width
+                    ,maxHeight:screen.height
+                }
+            }
+        }, function (stream) {
+            vid.src = window.URL.createObjectURL(stream);
+            peerConnection.addStream(stream);
+        }, function (e) {
+            console.error(e);
+        })
+
+       cb(myiface);
+    }
+
+    require('./lib/server.js').on('client',start);
+
+
+
+</script>
+</body>
